@@ -6,4 +6,5 @@ itsdangerous==2.0.1
 Jinja2==3.0.3
 MarkupSafe==2.0.1
 numpy==1.22.1
+opencv-contrib-python-headless==4.5.5.62
 Werkzeug==2.0.2
