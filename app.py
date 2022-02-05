@@ -1,12 +1,11 @@
 from flask import Flask, render_template, request, redirect, send_file
 from werkzeug.utils import secure_filename
 import os
-from pathlib import Path
 import threading
 from upscale_logic import imageUpscale
 
 # base path
-base_path = Path(__file__).parent
+base_path = os.path.abspath(os.path.dirname(__file__))
 
 app = Flask(__name__)
 
@@ -32,7 +31,7 @@ def index():
             
             if file_ext not in app.config['UPLOAD_EXTENSIONS']:
                 return 'File type not supported. Please choose an image.'
-            uploaded_file.save(base_path / app.config['UPLOAD_PATH'] / (input_filename + file_ext))
+            uploaded_file.save(os.path.join(base_path, app.config['UPLOAD_PATH'], str(input_filename + file_ext)))
             print('Saved file successfully')
 
             # call ML model
@@ -59,7 +58,7 @@ def download():
 @app.route('/downloadfile', methods=['GET']) # download output
 def downloadFile():
     global base_path, result_filename, file_ext
-    file = base_path / app.config["UPLOAD_PATH"] / str(result_filename + file_ext)
+    file = os.path.join(base_path, app.config["UPLOAD_PATH"], str(result_filename + file_ext))
     try:
         return send_file(file, as_attachment=True)
     except FileNotFoundError:
