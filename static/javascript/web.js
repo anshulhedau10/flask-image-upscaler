@@ -17,3 +17,9 @@ function checkInput() {
     document.getElementById('btnSubmit').disabled = true;
     document.getElementById('btnPressMsg').innerHTML = '<p>Take a sip of water 🥤.</p>'
 }
+
+function flashMessage() {
+    if ("{{ error }}" == True) {
+      alert("Timeout! Please try again.");
+    }
+  }

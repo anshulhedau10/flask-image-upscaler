@@ -62,7 +62,7 @@ def downloadFile():
     try:
         return send_file(file, as_attachment=True)
     except FileNotFoundError:
-        return "Timeout! Please try again :(."
+        return render_template('download.html', error = True)
     
     
 #@app.after_response
